@@ -38,8 +38,8 @@ public class Main {
 
         TransactionCustomer C873221189 = new TransactionCustomer(
                 "C873221189",
-                new BigDecimal(6510099.11),
-                new BigDecimal(7360101.63)
+                new BigDecimal("6510099.11"),
+                new BigDecimal("7360101.63")
         );
 
         Transaction transaction2 = new Transaction(

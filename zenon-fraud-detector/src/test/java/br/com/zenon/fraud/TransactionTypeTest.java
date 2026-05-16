@@ -9,7 +9,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class TransactionTypeTest {
     @Test
     void shouldHaveExistsATransactionTypeEnumClass() {
-        assertNotNull(Transaction.TransactionTypes.class);
+        assertNotNull(TransactionType.class);
     }
 
     @Test
@@ -17,7 +17,7 @@ class TransactionTypeTest {
 
         String[] expectedValues = {"CASH_IN", "CASH_OUT", "DEBIT", "PAYMENT", "TRANSFER"};
 
-        List<String> actualValues = java.util.Arrays.stream(Transaction.TransactionTypes.values())
+        List<String> actualValues = java.util.Arrays.stream(TransactionType.values())
                 .map(Enum::name)
                 .toList();
 

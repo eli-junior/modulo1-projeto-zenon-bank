@@ -10,20 +10,20 @@ class TransactionTest {
 
     @Test
     void ShouldCreateATransactionWithAllFields() {
-        Customer origem = new Customer(
+        TransactionCustomer origem = new TransactionCustomer(
                 "C1231006815",
                 new BigDecimal("170136.0"),
                 new BigDecimal("160296.36")
         );
-        Customer destino = new Customer(
+        TransactionCustomer destino = new TransactionCustomer(
                 "M1979787155",
                 BigDecimal.ZERO,
                 BigDecimal.ZERO
         );
 
         Transaction transaction = new Transaction(
-                1L,
-                Transaction.TransactionTypes.PAYMENT,
+                1,
+                TransactionType.PAYMENT,
                 new BigDecimal("9839.64"),
                 origem,
                 destino,
@@ -32,30 +32,30 @@ class TransactionTest {
         );
 
         assertEquals(1, transaction.step());
-        assertEquals(Transaction.TransactionTypes.PAYMENT, transaction.type());
+        assertEquals(TransactionType.PAYMENT, transaction.type());
         assertEquals(new BigDecimal("9839.64"), transaction.amount());
         assertEquals(origem, transaction.origin());
-        assertEquals(destino, transaction.destination());
+        assertEquals(destino, transaction.recipient());
         assertFalse(transaction.isFraud());
         assertFalse(transaction.isFlaggedFraud());
     }
 
     @Test
     void shouldRepresentsTransactionOneCorrectly() {
-        Customer origem = new Customer(
+        TransactionCustomer origem = new TransactionCustomer(
                 "C1231006815",
                 new BigDecimal("170136.0"),
                 new BigDecimal("160296.36")
         );
-        Customer destino = new Customer(
+        TransactionCustomer destino = new TransactionCustomer(
                 "M1979787155",
                 BigDecimal.ZERO,
                 BigDecimal.ZERO
         );
 
         Transaction t1 = new Transaction(
-                1L,
-                Transaction.TransactionTypes.PAYMENT,
+                1,
+                TransactionType.PAYMENT,
                 new BigDecimal("9839.64"),
                 origem,
                 destino,
@@ -64,34 +64,34 @@ class TransactionTest {
         );
 
         assertEquals(1, t1.step());
-        assertEquals(Transaction.TransactionTypes.PAYMENT, t1.type());
+        assertEquals(TransactionType.PAYMENT, t1.type());
         assertEquals(new BigDecimal("9839.64"), t1.amount());
         assertEquals("C1231006815", t1.origin().name());
         assertEquals(new BigDecimal("170136.0"), t1.origin().oldBalance());
         assertEquals(new BigDecimal("160296.36"), t1.origin().newBalance());
-        assertEquals("M1979787155", t1.destination().name());
-        assertEquals(BigDecimal.ZERO, t1.destination().oldBalance());
-        assertEquals(BigDecimal.ZERO, t1.destination().newBalance());
+        assertEquals("M1979787155", t1.recipient().name());
+        assertEquals(BigDecimal.ZERO, t1.recipient().oldBalance());
+        assertEquals(BigDecimal.ZERO, t1.recipient().newBalance());
         assertFalse(t1.isFraud());
         assertFalse(t1.isFlaggedFraud());
     }
 
     @Test
     void shouldRepresentsTransactionTwoCorrectly() {
-        Customer origem = new Customer(
+        TransactionCustomer origem = new TransactionCustomer(
                 "C1280323807",
                 new BigDecimal("850002.52"),
                 BigDecimal.ZERO
         );
-        Customer destino = new Customer(
+        TransactionCustomer destino = new TransactionCustomer(
                 "C873221189",
                 new BigDecimal("6510099.11"),
                 new BigDecimal("7360101.63")
         );
 
         Transaction t2 = new Transaction(
-                743L,
-                Transaction.TransactionTypes.CASH_OUT,
+                743,
+                TransactionType.CASH_OUT,
                 new BigDecimal("850002.52"),
                 origem,
                 destino,
@@ -99,26 +99,26 @@ class TransactionTest {
                 false
         );
 
-        assertEquals(743L, t2.step());
-        assertEquals(Transaction.TransactionTypes.CASH_OUT, t2.type());
+        assertEquals(743, t2.step());
+        assertEquals(TransactionType.CASH_OUT, t2.type());
         assertEquals(new BigDecimal("850002.52"), t2.amount());
         assertEquals("C1280323807", t2.origin().name());
         assertEquals(BigDecimal.ZERO, t2.origin().newBalance());
-        assertEquals("C873221189", t2.destination().name());
-        assertEquals(new BigDecimal("6510099.11"), t2.destination().oldBalance());
-        assertEquals(new BigDecimal("7360101.63"), t2.destination().newBalance());
+        assertEquals("C873221189", t2.recipient().name());
+        assertEquals(new BigDecimal("6510099.11"), t2.recipient().oldBalance());
+        assertEquals(new BigDecimal("7360101.63"), t2.recipient().newBalance());
         assertTrue(t2.isFraud());
         assertFalse(t2.isFlaggedFraud());
     }
 
     @Test
     void shouldTwoRecordsWithSameDataBeEquals() {
-        Customer origem = new Customer("C123", BigDecimal.TEN, BigDecimal.ONE);
-        Customer destino = new Customer("C999", BigDecimal.ONE, BigDecimal.TEN);
+        TransactionCustomer origem = new TransactionCustomer("C123", BigDecimal.TEN, BigDecimal.ONE);
+        TransactionCustomer destino = new TransactionCustomer("C999", BigDecimal.ONE, BigDecimal.TEN);
 
-        Transaction t1 = new Transaction(1L, Transaction.TransactionTypes.DEBIT,
+        Transaction t1 = new Transaction(1, TransactionType.DEBIT,
                 new BigDecimal("100.0"), origem, destino, false, false);
-        Transaction t2 = new Transaction(1L, Transaction.TransactionTypes.DEBIT,
+        Transaction t2 = new Transaction(1, TransactionType.DEBIT,
                 new BigDecimal("100.0"), origem, destino, false, false);
 
         assertEquals(t1, t2);

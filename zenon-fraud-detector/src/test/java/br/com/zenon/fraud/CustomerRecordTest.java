@@ -11,7 +11,7 @@ import static org.junit.jupiter.api.Assertions.*;
 class CustomerRecordTest {
     @Test
     void shouldHaveACustomerClass() {
-        assertNotNull(Customer.class);
+        assertNotNull(TransactionCustomer.class);
     }
 
     @Test
@@ -22,7 +22,7 @@ class CustomerRecordTest {
 
         assertAll(Arrays.stream(fields)
                 .map(field -> (Executable) () -> assertDoesNotThrow(
-                        () -> Customer.class.getDeclaredField(field),
+                        () -> TransactionCustomer.class.getDeclaredField(field),
                         "Field not found: " + field
                 ))
                 .toArray(Executable[]::new)
@@ -30,21 +30,21 @@ class CustomerRecordTest {
     }
     @Test
     void shouldCreateACustomerSuccessfully() {
-        Customer customer = new Customer(
+        TransactionCustomer transactionCustomer = new TransactionCustomer(
                 "C1231006815",
                 new BigDecimal("170136.0"),
                 new BigDecimal("160296.36")
         );
 
-        assertEquals("C1231006815", customer.name());
-        assertEquals(new BigDecimal("170136.0"), customer.oldBalance());
-        assertEquals(new BigDecimal("160296.36"), customer.newBalance());
+        assertEquals("C1231006815", transactionCustomer.name());
+        assertEquals(new BigDecimal("170136.0"), transactionCustomer.oldBalance());
+        assertEquals(new BigDecimal("160296.36"), transactionCustomer.newBalance());
     }
 
     @Test
     void ShouldBeTwoClientsWithSameDataEquals() {
-        Customer c1 = new Customer("C123", BigDecimal.TEN, BigDecimal.ONE);
-        Customer c2 = new Customer("C123", BigDecimal.TEN, BigDecimal.ONE);
+        TransactionCustomer c1 = new TransactionCustomer("C123", BigDecimal.TEN, BigDecimal.ONE);
+        TransactionCustomer c2 = new TransactionCustomer("C123", BigDecimal.TEN, BigDecimal.ONE);
 
         assertEquals(c1, c2);
         assertEquals(c1.hashCode(), c2.hashCode());
@@ -52,8 +52,8 @@ class CustomerRecordTest {
 
     @Test
     void ShouldNotBeTwoClientsWithDifferentDataEquals() {
-        Customer c1 = new Customer("C123", BigDecimal.TEN, BigDecimal.ONE);
-        Customer c2 = new Customer("C999", BigDecimal.TEN, BigDecimal.ONE);
+        TransactionCustomer c1 = new TransactionCustomer("C123", BigDecimal.TEN, BigDecimal.ONE);
+        TransactionCustomer c2 = new TransactionCustomer("C999", BigDecimal.TEN, BigDecimal.ONE);
 
         assertNotEquals(c1, c2);
     }

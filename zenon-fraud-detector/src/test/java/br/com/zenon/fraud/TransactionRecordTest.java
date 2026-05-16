@@ -40,7 +40,7 @@ class TransactionRecordTest {
         var origin = new TransactionCustomer(nameOrig, oldbalanceOrg, newbalanceOrig);
         var nameDest = "ClienteB";
         var oldbalanceDest = new BigDecimal("500.0");
-        var newbalanceDest = new BigDecimal("600.0");;
+        var newbalanceDest = new BigDecimal("600.0");
         var destination = new TransactionCustomer(nameDest, oldbalanceDest, newbalanceDest);
         var isFraud = true;
         var isFlaggedFraud = false;

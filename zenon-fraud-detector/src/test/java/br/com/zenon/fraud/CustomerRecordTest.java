@@ -42,7 +42,7 @@ class CustomerRecordTest {
     }
 
     @Test
-    void ShouldBeTwoClientsWithSameDataEquals() {
+    void shouldBeTwoClientsWithSameDataBeEquals() {
         TransactionCustomer c1 = new TransactionCustomer("C123", BigDecimal.TEN, BigDecimal.ONE);
         TransactionCustomer c2 = new TransactionCustomer("C123", BigDecimal.TEN, BigDecimal.ONE);
 
@@ -51,7 +51,7 @@ class CustomerRecordTest {
     }
 
     @Test
-    void ShouldNotBeTwoClientsWithDifferentDataEquals() {
+    void shouldNotBeTwoClientsWithDifferentDataBeEquals() {
         TransactionCustomer c1 = new TransactionCustomer("C123", BigDecimal.TEN, BigDecimal.ONE);
         TransactionCustomer c2 = new TransactionCustomer("C999", BigDecimal.TEN, BigDecimal.ONE);
 

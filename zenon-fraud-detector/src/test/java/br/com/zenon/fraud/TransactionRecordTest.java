@@ -31,7 +31,7 @@ class TransactionRecordTest {
     }
     @Test
     void shouldCreateATransactionSuccessfully() {
-        var step = 1L;
+        var step = 1;
         var type = Transaction.TransactionTypes.PAYMENT;
         var amount = new BigDecimal("100.0");
         var nameOrig = "ClienteA";
@@ -40,7 +40,7 @@ class TransactionRecordTest {
         var origin = new Customer(nameOrig, oldbalanceOrg, newbalanceOrig);
         var nameDest = "ClienteB";
         var oldbalanceDest = new BigDecimal("500.0");
-        var newbalanceDest = new BigDecimal("600.0");;
+        var newbalanceDest = new BigDecimal("600.0");
         var destination = new Customer(nameDest, oldbalanceDest, newbalanceDest);
         var isFraud = true;
         var isFlaggedFraud = false;

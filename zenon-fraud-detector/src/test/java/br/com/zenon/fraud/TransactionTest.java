@@ -22,7 +22,7 @@ class TransactionTest {
         );
 
         Transaction transaction = new Transaction(
-                1L,
+                1,
                 Transaction.TransactionTypes.PAYMENT,
                 new BigDecimal("9839.64"),
                 origem,
@@ -54,7 +54,7 @@ class TransactionTest {
         );
 
         Transaction t1 = new Transaction(
-                1L,
+                1,
                 Transaction.TransactionTypes.PAYMENT,
                 new BigDecimal("9839.64"),
                 origem,
@@ -90,7 +90,7 @@ class TransactionTest {
         );
 
         Transaction t2 = new Transaction(
-                743L,
+                743,
                 Transaction.TransactionTypes.CASH_OUT,
                 new BigDecimal("850002.52"),
                 origem,
@@ -99,7 +99,7 @@ class TransactionTest {
                 false
         );
 
-        assertEquals(743L, t2.step());
+        assertEquals(743, t2.step());
         assertEquals(Transaction.TransactionTypes.CASH_OUT, t2.type());
         assertEquals(new BigDecimal("850002.52"), t2.amount());
         assertEquals("C1280323807", t2.origin().name());
@@ -116,9 +116,9 @@ class TransactionTest {
         Customer origem = new Customer("C123", BigDecimal.TEN, BigDecimal.ONE);
         Customer destino = new Customer("C999", BigDecimal.ONE, BigDecimal.TEN);
 
-        Transaction t1 = new Transaction(1L, Transaction.TransactionTypes.DEBIT,
+        Transaction t1 = new Transaction(1, Transaction.TransactionTypes.DEBIT,
                 new BigDecimal("100.0"), origem, destino, false, false);
-        Transaction t2 = new Transaction(1L, Transaction.TransactionTypes.DEBIT,
+        Transaction t2 = new Transaction(1, Transaction.TransactionTypes.DEBIT,
                 new BigDecimal("100.0"), origem, destino, false, false);
 
         assertEquals(t1, t2);

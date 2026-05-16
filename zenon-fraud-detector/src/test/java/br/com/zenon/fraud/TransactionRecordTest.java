@@ -11,11 +11,6 @@ import static org.junit.jupiter.api.Assertions.*;
 class TransactionRecordTest {
 
     @Test
-    void shouldHaveATransactionClass() {
-        assertNotNull(Transaction.class);
-    }
-
-    @Test
     void shouldContainAllCSVFields() {
         String[] fields = {
                 "step", "type", "amount", "origin", "destination", "isFraud", "isFlaggedFraud"
@@ -40,7 +35,7 @@ class TransactionRecordTest {
         var origin = new Customer(nameOrig, oldbalanceOrg, newbalanceOrig);
         var nameDest = "ClienteB";
         var oldbalanceDest = new BigDecimal("500.0");
-        var newbalanceDest = new BigDecimal("600.0");;
+        var newbalanceDest = new BigDecimal("600.0");
         var destination = new Customer(nameDest, oldbalanceDest, newbalanceDest);
         var isFraud = true;
         var isFlaggedFraud = false;

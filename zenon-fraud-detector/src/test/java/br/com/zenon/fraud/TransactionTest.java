@@ -9,7 +9,7 @@ class TransactionTest {
 
 
     @Test
-    void ShouldCreateATransactionWithAllFields() {
+    void shouldCreateATransactionWithAllFields() {
         Customer origem = new Customer(
                 "C1231006815",
                 new BigDecimal("170136.0"),

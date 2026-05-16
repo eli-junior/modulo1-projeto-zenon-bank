@@ -10,11 +10,6 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class CustomerRecordTest {
     @Test
-    void shouldHaveACustomerClass() {
-        assertNotNull(Customer.class);
-    }
-
-    @Test
     void shouldContainAllCustomerFields() {
         String[] fields = {
                 "name", "oldBalance", "newBalance"
@@ -42,7 +37,7 @@ class CustomerRecordTest {
     }
 
     @Test
-    void ShouldBeTwoClientsWithSameDataEquals() {
+    void shouldBeTwoClientsWithSameDataBeEquals() {
         Customer c1 = new Customer("C123", BigDecimal.TEN, BigDecimal.ONE);
         Customer c2 = new Customer("C123", BigDecimal.TEN, BigDecimal.ONE);
 
@@ -51,7 +46,7 @@ class CustomerRecordTest {
     }
 
     @Test
-    void ShouldNotBeTwoClientsWithDifferentDataEquals() {
+    void shouldNotBeTwoClientsWithDifferentDataBeEquals() {
         Customer c1 = new Customer("C123", BigDecimal.TEN, BigDecimal.ONE);
         Customer c2 = new Customer("C999", BigDecimal.TEN, BigDecimal.ONE);
 

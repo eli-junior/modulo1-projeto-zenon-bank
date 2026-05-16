@@ -18,7 +18,7 @@ class TransactionRecordTest {
     @Test
     void shouldContainAllCSVFields() {
         String[] fields = {
-                "step", "type", "amount", "origin", "destination", "isFraud", "isFlaggedFraud"
+                "step", "type", "amount", "origin", "recipient", "isFraud", "isFlaggedFraud"
         };
 
         assertAll(Arrays.stream(fields)
@@ -31,17 +31,17 @@ class TransactionRecordTest {
     }
     @Test
     void shouldCreateATransactionSuccessfully() {
-        var step = 1L;
-        var type = Transaction.TransactionTypes.PAYMENT;
+        var step = 1;
+        var type = TransactionType.PAYMENT;
         var amount = new BigDecimal("100.0");
         var nameOrig = "ClienteA";
         var oldbalanceOrg = new BigDecimal("1000.0");
         var newbalanceOrig = new BigDecimal("900.0");
-        var origin = new Customer(nameOrig, oldbalanceOrg, newbalanceOrig);
+        var origin = new TransactionCustomer(nameOrig, oldbalanceOrg, newbalanceOrig);
         var nameDest = "ClienteB";
         var oldbalanceDest = new BigDecimal("500.0");
-        var newbalanceDest = new BigDecimal("600.0");;
-        var destination = new Customer(nameDest, oldbalanceDest, newbalanceDest);
+        var newbalanceDest = new BigDecimal("600.0");
+        var destination = new TransactionCustomer(nameDest, oldbalanceDest, newbalanceDest);
         var isFraud = true;
         var isFlaggedFraud = false;
 
@@ -52,8 +52,8 @@ class TransactionRecordTest {
         assertEquals("ClienteA", transaction.origin().name());
         assertEquals(new BigDecimal("1000.0"), transaction.origin().oldBalance());
         assertEquals(new BigDecimal("900.0"), transaction.origin().newBalance());
-        assertEquals("ClienteB", transaction.destination().name());
-        assertEquals(new BigDecimal("500.0"), transaction.destination().oldBalance());
-        assertEquals(new BigDecimal("600.0"), transaction.destination().newBalance());
+        assertEquals("ClienteB", transaction.recipient().name());
+        assertEquals(new BigDecimal("500.0"), transaction.recipient().oldBalance());
+        assertEquals(new BigDecimal("600.0"), transaction.recipient().newBalance());
     }
 }

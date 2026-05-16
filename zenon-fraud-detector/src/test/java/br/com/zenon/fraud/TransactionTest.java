@@ -4,13 +4,12 @@ import org.junit.jupiter.api.Test;
 import java.math.BigDecimal;
 import static org.junit.jupiter.api.Assertions.*;
 
-// PASSO 3 — Crie o record Transaction antes de descomentar estes testes.
-// Transaction usa TransactionType e Customer como tipos dos seus campos.
+
 class TransactionTest {
 
-    /*
+
     @Test
-    void deveCriarTransacaoComTodosOsCampos() {
+    void ShouldCreateATransactionWithAllFields() {
         Customer origem = new Customer(
                 "C1231006815",
                 new BigDecimal("170136.0"),
@@ -23,8 +22,8 @@ class TransactionTest {
         );
 
         Transaction transaction = new Transaction(
-                1,
-                TransactionType.PAYMENT,
+                1L,
+                Transaction.TransactionTypes.PAYMENT,
                 new BigDecimal("9839.64"),
                 origem,
                 destino,
@@ -33,7 +32,7 @@ class TransactionTest {
         );
 
         assertEquals(1, transaction.step());
-        assertEquals(TransactionType.PAYMENT, transaction.type());
+        assertEquals(Transaction.TransactionTypes.PAYMENT, transaction.type());
         assertEquals(new BigDecimal("9839.64"), transaction.amount());
         assertEquals(origem, transaction.origin());
         assertEquals(destino, transaction.destination());
@@ -42,7 +41,7 @@ class TransactionTest {
     }
 
     @Test
-    void deveRepresentarTransacao1Corretamente() {
+    void shouldRepresentsTransactionOneCorrectly() {
         Customer origem = new Customer(
                 "C1231006815",
                 new BigDecimal("170136.0"),
@@ -55,8 +54,8 @@ class TransactionTest {
         );
 
         Transaction t1 = new Transaction(
-                1,
-                TransactionType.PAYMENT,
+                1L,
+                Transaction.TransactionTypes.PAYMENT,
                 new BigDecimal("9839.64"),
                 origem,
                 destino,
@@ -65,7 +64,7 @@ class TransactionTest {
         );
 
         assertEquals(1, t1.step());
-        assertEquals(TransactionType.PAYMENT, t1.type());
+        assertEquals(Transaction.TransactionTypes.PAYMENT, t1.type());
         assertEquals(new BigDecimal("9839.64"), t1.amount());
         assertEquals("C1231006815", t1.origin().name());
         assertEquals(new BigDecimal("170136.0"), t1.origin().oldBalance());
@@ -78,7 +77,7 @@ class TransactionTest {
     }
 
     @Test
-    void deveRepresentarTransacao2Corretamente() {
+    void shouldRepresentsTransactionTwoCorrectly() {
         Customer origem = new Customer(
                 "C1280323807",
                 new BigDecimal("850002.52"),
@@ -91,8 +90,8 @@ class TransactionTest {
         );
 
         Transaction t2 = new Transaction(
-                743,
-                TransactionType.CASH_OUT,
+                743L,
+                Transaction.TransactionTypes.CASH_OUT,
                 new BigDecimal("850002.52"),
                 origem,
                 destino,
@@ -100,8 +99,8 @@ class TransactionTest {
                 false
         );
 
-        assertEquals(743, t2.step());
-        assertEquals(TransactionType.CASH_OUT, t2.type());
+        assertEquals(743L, t2.step());
+        assertEquals(Transaction.TransactionTypes.CASH_OUT, t2.type());
         assertEquals(new BigDecimal("850002.52"), t2.amount());
         assertEquals("C1280323807", t2.origin().name());
         assertEquals(BigDecimal.ZERO, t2.origin().newBalance());
@@ -113,16 +112,15 @@ class TransactionTest {
     }
 
     @Test
-    void doisRecordsComMesmosDadosDevemSerIguais() {
+    void shouldTwoRecordsWithSameDataBeEquals() {
         Customer origem = new Customer("C123", BigDecimal.TEN, BigDecimal.ONE);
         Customer destino = new Customer("C999", BigDecimal.ONE, BigDecimal.TEN);
 
-        Transaction t1 = new Transaction(1, TransactionType.DEBIT,
+        Transaction t1 = new Transaction(1L, Transaction.TransactionTypes.DEBIT,
                 new BigDecimal("100.0"), origem, destino, false, false);
-        Transaction t2 = new Transaction(1, TransactionType.DEBIT,
+        Transaction t2 = new Transaction(1L, Transaction.TransactionTypes.DEBIT,
                 new BigDecimal("100.0"), origem, destino, false, false);
 
         assertEquals(t1, t2);
     }
-    */
 }

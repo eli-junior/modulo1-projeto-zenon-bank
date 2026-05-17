@@ -29,12 +29,12 @@ class TransactionIngestorTest {
                 1,
                 Transaction.TransactionTypes.PAYMENT,
                 new BigDecimal("9839.64"),
-                new Customer(
+                new TransactionCustomer(
                         "C1231006815",
                         new BigDecimal("170136.0"),
                         new BigDecimal("160296.36")
                 ),
-                new Customer(
+                new TransactionCustomer(
                         "M1979787155",
                         new BigDecimal("0.0"),
                         new BigDecimal("0.0")

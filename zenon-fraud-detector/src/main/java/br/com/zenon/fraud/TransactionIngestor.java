@@ -44,15 +44,15 @@ public class TransactionIngestor {
                 Integer.parseInt(values[0]),
                 Transaction.TransactionTypes.valueOf(values[1]),
                 new BigDecimal(values[2]),
-                new Customer(
-                        values[3],
-                        new BigDecimal(values[4]),
-                        new BigDecimal(values[5])
+                new TransactionCustomer(
+                    values[3],
+                    new BigDecimal(values[4]),
+                    new BigDecimal(values[5])
                 ),
-                new Customer(
-                        values[6],
-                        new BigDecimal(values[7]),
-                        new BigDecimal(values[8])
+                new TransactionCustomer(
+                    values[6],
+                    new BigDecimal(values[7]),
+                    new BigDecimal(values[8])
                 ),
                 parseIntToBoolean(values[9]),
                 parseIntToBoolean(values[10])

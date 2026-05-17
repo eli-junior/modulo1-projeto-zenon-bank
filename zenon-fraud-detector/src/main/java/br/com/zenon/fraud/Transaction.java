@@ -2,8 +2,8 @@ package br.com.zenon.fraud;
 
 import java.math.BigDecimal;
 
-public record Transaction(int step, TransactionTypes type, BigDecimal amount, Customer origin,
-                          Customer destination,
+public record Transaction(int step, TransactionTypes type, BigDecimal amount, TransactionCustomer origin,
+                          TransactionCustomer destination,
                           boolean isFraud,
                           boolean isFlaggedFraud) {
 

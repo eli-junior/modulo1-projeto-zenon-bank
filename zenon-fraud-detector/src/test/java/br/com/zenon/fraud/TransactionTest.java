@@ -10,12 +10,12 @@ class TransactionTest {
 
     @Test
     void ShouldCreateATransactionWithAllFields() {
-        Customer origem = new Customer(
+        var origem = new TransactionCustomer(
                 "C1231006815",
                 new BigDecimal("170136.0"),
                 new BigDecimal("160296.36")
         );
-        Customer destino = new Customer(
+        var destino = new TransactionCustomer(
                 "M1979787155",
                 BigDecimal.ZERO,
                 BigDecimal.ZERO
@@ -42,12 +42,12 @@ class TransactionTest {
 
     @Test
     void shouldRepresentsTransactionOneCorrectly() {
-        Customer origem = new Customer(
+        var origem = new TransactionCustomer(
                 "C1231006815",
                 new BigDecimal("170136.0"),
                 new BigDecimal("160296.36")
         );
-        Customer destino = new Customer(
+        var destino = new TransactionCustomer(
                 "M1979787155",
                 BigDecimal.ZERO,
                 BigDecimal.ZERO
@@ -78,12 +78,12 @@ class TransactionTest {
 
     @Test
     void shouldRepresentsTransactionTwoCorrectly() {
-        Customer origem = new Customer(
+        var origem = new TransactionCustomer(
                 "C1280323807",
                 new BigDecimal("850002.52"),
                 BigDecimal.ZERO
         );
-        Customer destino = new Customer(
+        var destino = new TransactionCustomer(
                 "C873221189",
                 new BigDecimal("6510099.11"),
                 new BigDecimal("7360101.63")
@@ -113,8 +113,8 @@ class TransactionTest {
 
     @Test
     void shouldTwoRecordsWithSameDataBeEquals() {
-        Customer origem = new Customer("C123", BigDecimal.TEN, BigDecimal.ONE);
-        Customer destino = new Customer("C999", BigDecimal.ONE, BigDecimal.TEN);
+        var origem = new TransactionCustomer("C123", BigDecimal.TEN, BigDecimal.ONE);
+        var destino = new TransactionCustomer("C999", BigDecimal.ONE, BigDecimal.TEN);
 
         Transaction t1 = new Transaction(1, Transaction.TransactionTypes.DEBIT,
                 new BigDecimal("100.0"), origem, destino, false, false);

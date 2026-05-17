@@ -31,6 +31,7 @@ public class TransactionIngestor {
                 transactions.add(t);
             }
         }
+        System.out.println("Fim");
         return transactions;
     }
 

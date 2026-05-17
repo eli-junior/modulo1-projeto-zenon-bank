@@ -1,6 +1,9 @@
 # Compiled class file
 *.class
 
+.claude/
+.gradle/
+
 # Log file
 *.log
 
@@ -40,7 +43,7 @@ target/
 *.iws
 *.iml
 *.ipr
-.claude/
+
 ### Eclipse ###
 .apt_generated
 .classpath

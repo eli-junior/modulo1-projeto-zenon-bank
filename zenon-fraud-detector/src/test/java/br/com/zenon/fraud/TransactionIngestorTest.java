@@ -4,9 +4,33 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 
+
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionIngestorTest {
+
+    @Test
+    void shouldProcessAEmptyFile() {
+        TransactionIngestor ti = new TransactionIngestor();
+        try{
+            var lines = ti.Ingestor("./src/test/java/br/com/zenon/fraud/data/empty_list.csv", 10);
+            assertEquals(0, lines.size());
+        } catch (Exception ex) {
+            throw  new RuntimeException(ex);
+        }
+    }
+
+    @Test
+    void shouldProcessAFileTotallyInformingSizeSuperior() {
+        TransactionIngestor ti = new TransactionIngestor();
+        try{
+            var lines = ti.Ingestor("./src/test/java/br/com/zenon/fraud/data/sample.csv", 1000);
+            assertEquals(25, lines.size());
+        } catch (Exception ex) {
+            throw  new RuntimeException(ex);
+        }
+    }
+
     @Test
     void shouldHaveACustomerClass() {
         assertNotNull(TransactionIngestor.class);

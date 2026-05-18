@@ -27,7 +27,10 @@ public class TransactionIngestor {
                 }
 
 
-                Transaction t = LineToTransaction(line);
+                Transaction t = parseTransaction(line);
+                if (t == null) {
+                    continue;
+                }
                 transactions.add(t);
             }
         }
@@ -35,28 +38,34 @@ public class TransactionIngestor {
         return transactions;
     }
 
-    public static boolean parseIntToBoolean(String key) {
+    static boolean parseIntToBoolean(String key) {
         return key.equals("1");
     }
 
-    public static Transaction LineToTransaction(String line) {
-        String[] values = line.split(",");
-        return new Transaction(
-                Integer.parseInt(values[0]),
-                Transaction.TransactionTypes.valueOf(values[1]),
-                new BigDecimal(values[2]),
-                new TransactionCustomer(
-                    values[3],
-                    new BigDecimal(values[4]),
-                    new BigDecimal(values[5])
-                ),
-                new TransactionCustomer(
-                    values[6],
-                    new BigDecimal(values[7]),
-                    new BigDecimal(values[8])
-                ),
-                parseIntToBoolean(values[9]),
-                parseIntToBoolean(values[10])
-        );
+    static Transaction parseTransaction(String line) {
+        try {
+
+            String[] values = line.split(",");
+            return new Transaction(
+                    Integer.parseInt(values[0]),
+                    TransactionType.valueOf(values[1]),
+                    new BigDecimal(values[2]),
+                    new TransactionCustomer(
+                            values[3],
+                            new BigDecimal(values[4]),
+                            new BigDecimal(values[5])
+                    ),
+                    new TransactionCustomer(
+                            values[6],
+                            new BigDecimal(values[7]),
+                            new BigDecimal(values[8])
+                    ),
+                    parseIntToBoolean(values[9]),
+                    parseIntToBoolean(values[10])
+            );
+        } catch (Exception ex) {
+            System.err.println("Erro ao processar linha: " + line + " | " + ex);
+        }
+        return null;
     }
 }

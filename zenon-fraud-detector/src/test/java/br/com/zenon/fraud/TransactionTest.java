@@ -7,37 +7,33 @@ import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionTest {
 
+    int step = 1;
+    TransactionType type = TransactionType.PAYMENT;
+    BigDecimal amount = new BigDecimal("100.0");
+    TransactionCustomer clienteA = new TransactionCustomer(
+            "ClienteA",
+            new BigDecimal("1000.0"),
+            new BigDecimal("900.0")
+    );
+    TransactionCustomer clienteB = new TransactionCustomer(
+            "ClienteB",
+            new BigDecimal("500.0"),
+            new BigDecimal("600.0")
+    );
+    boolean isFraud = true;
+    boolean isFlaggedFraud = false;
 
     @Test
     void ShouldCreateATransactionWithAllFields() {
-        var origem = new TransactionCustomer(
-                "C1231006815",
-                new BigDecimal("170136.0"),
-                new BigDecimal("160296.36")
-        );
-        var destino = new TransactionCustomer(
-                "M1979787155",
-                BigDecimal.ZERO,
-                BigDecimal.ZERO
-        );
+        Transaction t = new Transaction(step, type, amount, clienteA, clienteB, isFraud, isFlaggedFraud);
 
-        Transaction transaction = new Transaction(
-                1,
-                Transaction.TransactionTypes.PAYMENT,
-                new BigDecimal("9839.64"),
-                origem,
-                destino,
-                false,
-                false
-        );
-
-        assertEquals(1, transaction.step());
-        assertEquals(Transaction.TransactionTypes.PAYMENT, transaction.type());
-        assertEquals(new BigDecimal("9839.64"), transaction.amount());
-        assertEquals(origem, transaction.origin());
-        assertEquals(destino, transaction.destination());
-        assertFalse(transaction.isFraud());
-        assertFalse(transaction.isFlaggedFraud());
+        assertEquals(step, t.step());
+        assertEquals(type, t.type());
+        assertEquals(amount, t.amount());
+        assertEquals(clienteA, t.origin());
+        assertEquals(clienteB, t.destination());
+        assertTrue(t.isFraud());
+        assertFalse(t.isFlaggedFraud());
     }
 
     @Test
@@ -55,7 +51,7 @@ class TransactionTest {
 
         Transaction t1 = new Transaction(
                 1,
-                Transaction.TransactionTypes.PAYMENT,
+                TransactionType.PAYMENT,
                 new BigDecimal("9839.64"),
                 origem,
                 destino,
@@ -64,7 +60,7 @@ class TransactionTest {
         );
 
         assertEquals(1, t1.step());
-        assertEquals(Transaction.TransactionTypes.PAYMENT, t1.type());
+        assertEquals(TransactionType.PAYMENT, t1.type());
         assertEquals(new BigDecimal("9839.64"), t1.amount());
         assertEquals("C1231006815", t1.origin().name());
         assertEquals(new BigDecimal("170136.0"), t1.origin().oldBalance());
@@ -91,7 +87,7 @@ class TransactionTest {
 
         Transaction t2 = new Transaction(
                 743,
-                Transaction.TransactionTypes.CASH_OUT,
+                TransactionType.CASH_OUT,
                 new BigDecimal("850002.52"),
                 origem,
                 destino,
@@ -100,7 +96,7 @@ class TransactionTest {
         );
 
         assertEquals(743, t2.step());
-        assertEquals(Transaction.TransactionTypes.CASH_OUT, t2.type());
+        assertEquals(TransactionType.CASH_OUT, t2.type());
         assertEquals(new BigDecimal("850002.52"), t2.amount());
         assertEquals("C1280323807", t2.origin().name());
         assertEquals(BigDecimal.ZERO, t2.origin().newBalance());
@@ -116,9 +112,9 @@ class TransactionTest {
         var origem = new TransactionCustomer("C123", BigDecimal.TEN, BigDecimal.ONE);
         var destino = new TransactionCustomer("C999", BigDecimal.ONE, BigDecimal.TEN);
 
-        Transaction t1 = new Transaction(1, Transaction.TransactionTypes.DEBIT,
+        Transaction t1 = new Transaction(1, TransactionType.DEBIT,
                 new BigDecimal("100.0"), origem, destino, false, false);
-        Transaction t2 = new Transaction(1, Transaction.TransactionTypes.DEBIT,
+        Transaction t2 = new Transaction(1, TransactionType.DEBIT,
                 new BigDecimal("100.0"), origem, destino, false, false);
 
         assertEquals(t1, t2);

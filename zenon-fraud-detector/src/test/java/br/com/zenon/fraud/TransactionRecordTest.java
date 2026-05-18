@@ -4,11 +4,28 @@ import org.junit.jupiter.api.Test;
 
 import java.math.BigDecimal;
 import java.util.Arrays;
+
+
 import org.junit.jupiter.api.function.Executable;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 class TransactionRecordTest {
+    int step = 1;
+    TransactionType type = TransactionType.PAYMENT;
+    BigDecimal amount = new BigDecimal("100.0");
+    TransactionCustomer clienteA = new TransactionCustomer(
+            "ClienteA",
+            new BigDecimal("1000.0"),
+            new BigDecimal("900.0")
+    );
+    TransactionCustomer clienteB = new TransactionCustomer(
+            "ClienteB",
+            new BigDecimal("500.0"),
+            new BigDecimal("600.0")
+    );
+    boolean isFraud = true;
+    boolean isFlaggedFraud = false;
 
     @Test
     void shouldHaveATransactionClass() {
@@ -29,31 +46,50 @@ class TransactionRecordTest {
                 .toArray(Executable[]::new)
         );
     }
+
     @Test
     void shouldCreateATransactionSuccessfully() {
-        var step = 1;
-        var type = Transaction.TransactionTypes.PAYMENT;
-        var amount = new BigDecimal("100.0");
-        var nameOrig = "ClienteA";
-        var oldbalanceOrg = new BigDecimal("1000.0");
-        var newbalanceOrig = new BigDecimal("900.0");
-        var origin = new TransactionCustomer(nameOrig, oldbalanceOrg, newbalanceOrig);
-        var nameDest = "ClienteB";
-        var oldbalanceDest = new BigDecimal("500.0");
-        var newbalanceDest = new BigDecimal("600.0");
-        var destination = new TransactionCustomer(nameDest, oldbalanceDest, newbalanceDest);
-        var isFraud = true;
-        var isFlaggedFraud = false;
+        Transaction t = new Transaction(step, type, amount, clienteA, clienteB, isFraud, isFlaggedFraud);
 
-        Transaction transaction = new Transaction(
-            step, type, amount, origin, destination, isFraud, isFlaggedFraud
-        );
 
-        assertEquals("ClienteA", transaction.origin().name());
-        assertEquals(new BigDecimal("1000.0"), transaction.origin().oldBalance());
-        assertEquals(new BigDecimal("900.0"), transaction.origin().newBalance());
-        assertEquals("ClienteB", transaction.destination().name());
-        assertEquals(new BigDecimal("500.0"), transaction.destination().oldBalance());
-        assertEquals(new BigDecimal("600.0"), transaction.destination().newBalance());
+        assertEquals("ClienteA", t.origin().name());
+        assertEquals(new BigDecimal("1000.0"), t.origin().oldBalance());
+        assertEquals(new BigDecimal("900.0"), t.origin().newBalance());
+        assertEquals("ClienteB", t.destination().name());
+        assertEquals(new BigDecimal("500.0"), t.destination().oldBalance());
+        assertEquals(new BigDecimal("600.0"), t.destination().newBalance());
+    }
+
+    @Test
+    void shouldTransactionStepNegativeThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, (() -> new Transaction(-1, type, amount, clienteA, clienteB, isFraud, isFlaggedFraud)));
+    }
+
+    @Test
+    void shouldTransactionStepEqualsZeroThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, (() -> new Transaction(0, type, amount, clienteA, clienteB, isFraud, isFlaggedFraud)));
+    }
+    @Test
+    void shouldTransactionAmountNegativeThrowsIllegalArgumentException() {
+        BigDecimal localAmount = new BigDecimal("-1");
+        assertThrows(IllegalArgumentException.class, (() -> new Transaction(step, type, localAmount, clienteA, clienteB, isFraud, isFlaggedFraud)));
+    }
+
+    @Test
+    void shouldTransactionTypeNullThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, (() -> new Transaction(step, null, amount, clienteA, clienteB, isFraud, isFlaggedFraud)));
+    }
+
+    @Test
+    void shouldTransactionAmountNullThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, (() -> new Transaction(step, type, null, clienteA, clienteB, isFraud, isFlaggedFraud)));
+    }
+    @Test
+    void shouldTransactionOriginNullThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, (() -> new Transaction(step, type, amount, null, clienteB, isFraud, isFlaggedFraud)));
+    }
+    @Test
+    void shouldTransactionDestinationNullThrowsIllegalArgumentException() {
+        assertThrows(IllegalArgumentException.class, (() -> new Transaction(step, type, amount, clienteA, null, isFraud, isFlaggedFraud)));
     }
 }

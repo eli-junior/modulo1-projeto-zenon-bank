@@ -16,7 +16,7 @@ public record Transaction(int step, TransactionType type, BigDecimal amount, Tra
         notNullFieldsCheck(destination, "destination");
     }
 
-    void notNullFieldsCheck(Object field, String fieldName) {
+    private void notNullFieldsCheck(Object field, String fieldName) {
         if (Objects.isNull(field)) {
             throw new IllegalArgumentException(
                     "The value of " + fieldName + "is required (cannot be null)");
@@ -24,14 +24,14 @@ public record Transaction(int step, TransactionType type, BigDecimal amount, Tra
         }
     }
 
-    void stepCheck(int value) {
+    private void stepCheck(int value) {
         if (value < 1) {
             throw new IllegalArgumentException(
                     "The value of step cannot be zero or negative");
 
         }
     }
-    void amountCheck(BigDecimal field) {
+    private void amountCheck(BigDecimal field) {
         if (Objects.isNull(field) || field.signum() < 0) {
             throw new IllegalArgumentException(
                     "The value of amount is required and cannot be zero or negative");

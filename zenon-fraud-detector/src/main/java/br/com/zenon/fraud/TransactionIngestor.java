@@ -15,9 +15,9 @@ public class TransactionIngestor {
         ArrayList<Transaction> transactions = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new FileReader(path.toFile()))) {
             for (int i = 0; i <= size; i++) {
-                System.out.println("Processando linha " + i);
+//                System.out.println("Processando linha " + i);
                 String line = br.readLine();
-                System.out.println(line);
+//                System.out.println(line);
                 if (i == 0) {
                     System.out.println("Ignorando cabecalho!");
                     continue;
